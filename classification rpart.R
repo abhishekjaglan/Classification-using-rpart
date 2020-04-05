@@ -1,0 +1,21 @@
+#classification using rpart
+install.packages('rpart')
+require(rpart)
+require(rpart.plot)
+data(iris)
+str(iris)
+table(iris$Species)
+head(iris)
+set.seed(9850)
+q <- runif(nrow(iris))
+irisr <- iris[order(q), ]
+head(irisr)
+str(iris)
+model2 <- rpart(Species ~ ., data = irisr[1:100,], method = "class")
+model2
+rpart.plot(model2)
+rpart.plot(model2,type = 3, extra = 101, fallen.leaves = T)
+summary(model2)
+p2 <- predict(model2, irisr[101:150,], type = "class")
+table(irisr[101:150,5],predicted = p2)
+table(irisr[101:150,5],predicted = p)
